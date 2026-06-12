@@ -34,13 +34,13 @@ const Production = () => {
 
     const handleEdit = (item) => {
         setNewItem({
-            ID_Zwierzecia: item.ID_Zwierzecia,
-            Data_Produkcji: item.Data_Produkcji,
-            Typ_Produktu: item.Typ_Produktu,
-            Ilosc: item.Ilosc,
-            Jednostka: item.Jednostka
+            ID_Zwierzecia: item.id_zwierzecia,
+            Data_Produkcji: item.data_produkcji,
+            Typ_Produktu: item.typ_produktu,
+            Ilosc: item.ilosc,
+            Jednostka: item.jednostka
         });
-        setEditingId(item.ID_Produkcji);
+        setEditingId(item.id_produkcji);
         setShowModal(true);
     };
 
@@ -68,28 +68,28 @@ const Production = () => {
             <div className="card" style={{ marginTop: '20px' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
-                        <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                            <th style={{ padding: '10px' }}>Data</th>
-                            <th style={{ padding: '10px' }}>Zwierzę (ID)</th>
-                            <th style={{ padding: '10px' }}>Produkt</th>
-                            <th style={{ padding: '10px' }}>Ilość</th>
-                            <th style={{ padding: '10px' }}>Jednostka</th>
-                            <th style={{ padding: '10px' }}>Akcje</th>
-                        </tr>
+                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <th style={{ padding: '10px' }}>Data</th>
+                        <th style={{ padding: '10px' }}>Zwierzę (ID)</th>
+                        <th style={{ padding: '10px' }}>Produkt</th>
+                        <th style={{ padding: '10px' }}>Ilość</th>
+                        <th style={{ padding: '10px' }}>Jednostka</th>
+                        <th style={{ padding: '10px' }}>Akcje</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {production.map(item => (
-                            <tr key={item.ID_Produkcji} style={{ borderBottom: '1px solid #333' }}>
-                                <td style={{ padding: '10px' }}>{item.Data_Produkcji}</td>
-                                <td style={{ padding: '10px' }}>{item.ID_Zwierzecia ? item.ID_Zwierzecia.substring(0, 8) + '...' : 'N/A'}</td>
-                                <td style={{ padding: '10px' }}>{item.Typ_Produktu}</td>
-                                <td style={{ padding: '10px' }}>{item.Ilosc}</td>
-                                <td style={{ padding: '10px' }}>{item.Jednostka}</td>
-                                <td style={{ padding: '10px' }}>
-                                    <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
-                                </td>
-                            </tr>
-                        ))}
+                    {production.map(item => (
+                        <tr key={item.id_produkcji} style={{ borderBottom: '1px solid #333' }}>
+                            <td style={{ padding: '10px' }}>{item.data_produkcji}</td>
+                            <td style={{ padding: '10px' }}>{item.id_zwierzecia ? item.id_zwierzecia.substring(0, 8) + '...' : 'N/A'}</td>
+                            <td style={{ padding: '10px' }}>{item.typ_produktu}</td>
+                            <td style={{ padding: '10px' }}>{item.ilosc}</td>
+                            <td style={{ padding: '10px' }}>{item.jednostka}</td>
+                            <td style={{ padding: '10px' }}>
+                                <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>
@@ -100,7 +100,7 @@ const Production = () => {
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
                             <select value={newItem.ID_Zwierzecia} onChange={e => setNewItem({ ...newItem, ID_Zwierzecia: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>
                                 <option value="">Wybierz Zwierzę</option>
-                                {animals.map(a => <option key={a.ID_Zwierzecia} value={a.ID_Zwierzecia}>{a.ID_Zwierzecia.substring(0, 8)}... - {a.Nazwa_Rasy}</option>)}
+                                {animals.map(a => <option key={a.id_zwierzecia} value={a.id_zwierzecia}>{a.id_zwierzecia ? a.id_zwierzecia.substring(0, 8) : ''}... - {a.nazwa_rasy}</option>)}
                             </select>
                             <input type="date" value={newItem.Data_Produkcji} onChange={e => setNewItem({ ...newItem, Data_Produkcji: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }} />
                             <select value={newItem.Typ_Produktu} onChange={e => setNewItem({ ...newItem, Typ_Produktu: e.target.value })} style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>

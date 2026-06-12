@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { authFetch } from '../api';
 
 const Events = () => {
-    const [tab, setTab] = useState('medical'); // 'medical' or 'feeding'
+    const [tab, setTab] = useState('medical');
     const [medicalEvents, setMedicalEvents] = useState([]);
     const [feedingEvents, setFeedingEvents] = useState([]);
 
-    // Metadata
     const [metadata, setMetadata] = useState({ employees: [], animals: [], locations: [], feed: [] });
     const [loading, setLoading] = useState(true);
 
-    // Form State
     const [showModal, setShowModal] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [medicalItem, setMedicalItem] = useState({ ID_Zwierzecia: '', ID_Pracownika: '', Data_Zdarzenia: '', Typ_Zdarzenia: 'Szczepienie', Opis: '' });
@@ -22,7 +20,7 @@ const Events = () => {
             authFetch('/api/events/medical').then(res => res.json()),
             authFetch('/api/events/feeding').then(res => res.json()),
             authFetch('/api/metadata').then(res => res.json()),
-            authFetch('/api/animals').then(res => res.json()) // Need explicit animals list
+            authFetch('/api/animals').then(res => res.json())
         ])
             .then(([medData, feedData, metaData, animalsData]) => {
                 setMedicalEvents(Array.isArray(medData) ? medData : []);
@@ -37,7 +35,7 @@ const Events = () => {
                 setLoading(false);
             })
             .catch(err => {
-                console.error('Fetch Error:', err);
+                console.error(err);
                 setLoading(false);
                 alert('Błąd pobierania danych: ' + err.message);
             });
@@ -54,25 +52,25 @@ const Events = () => {
 
     const handleEditMedical = (item) => {
         setMedicalItem({
-            ID_Zwierzecia: item.ID_Zwierzecia,
-            ID_Pracownika: item.ID_Pracownika,
-            Data_Zdarzenia: item.Data_Zdarzenia,
-            Typ_Zdarzenia: item.Typ_Zdarzenia,
-            Opis: item.Opis
+            ID_Zwierzecia: item.id_zwierzecia,
+            ID_Pracownika: item.id_pracownika,
+            Data_Zdarzenia: item.data_zdarzenia,
+            Typ_Zdarzenia: item.typ_zdarzenia,
+            Opis: item.opis
         });
-        setEditingId(item.ID_Zdarzenia_Medycznego);
+        setEditingId(item.id_zdarzenia_medycznego);
         setShowModal(true);
     };
 
     const handleEditFeeding = (item) => {
         setFeedingItem({
-            ID_Lokalizacji: item.ID_Lokalizacji,
-            ID_Paszy: item.ID_Paszy,
-            ID_Pracownika: item.ID_Pracownika,
-            Data_Karmienia: item.Data_Karmienia,
-            Ilosc_Paszy: item.Ilosc_Paszy
+            ID_Lokalizacji: item.id_lokalizacji,
+            ID_Paszy: item.id_paszy,
+            ID_Pracownika: item.id_pracownika,
+            Data_Karmienia: item.data_karmienia,
+            Ilosc_Paszy: item.ilosc_paszy
         });
-        setEditingId(item.ID_Zdarzenia_Karmienia);
+        setEditingId(item.id_zdarzenia_karmienia);
         setShowModal(true);
     };
 
@@ -108,55 +106,55 @@ const Events = () => {
                 {tab === 'medical' ? (
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                         <thead>
-                            <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                                <th style={{ padding: '10px' }}>Data</th>
-                                <th style={{ padding: '10px' }}>Typ</th>
-                                <th style={{ padding: '10px' }}>Zwierzę</th>
-                                <th style={{ padding: '10px' }}>Weterynarz</th>
-                                <th style={{ padding: '10px' }}>Opis</th>
-                                <th style={{ padding: '10px' }}>Akcje</th>
-                            </tr>
+                        <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                            <th style={{ padding: '10px' }}>Data</th>
+                            <th style={{ padding: '10px' }}>Typ</th>
+                            <th style={{ padding: '10px' }}>Zwierzę</th>
+                            <th style={{ padding: '10px' }}>Weterynarz</th>
+                            <th style={{ padding: '10px' }}>Opis</th>
+                            <th style={{ padding: '10px' }}>Akcje</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {medicalEvents.map(item => (
-                                <tr key={item.ID_Zdarzenia_Medycznego} style={{ borderBottom: '1px solid #333' }}>
-                                    <td style={{ padding: '10px' }}>{item.Data_Zdarzenia}</td>
-                                    <td style={{ padding: '10px' }}>{item.Typ_Zdarzenia}</td>
-                                    <td style={{ padding: '10px' }}>{item.ID_Zwierzecia ? item.ID_Zwierzecia.substring(0, 8) + '...' : 'N/A'}</td>
-                                    <td style={{ padding: '10px' }}>{item.Nazwisko_Weterynarza || item.ID_Pracownika}</td>
-                                    <td style={{ padding: '10px' }}>{item.Opis}</td>
-                                    <td style={{ padding: '10px' }}>
-                                        <button className="btn" onClick={() => handleEditMedical(item)}>Edytuj</button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {medicalEvents.map(item => (
+                            <tr key={item.id_zdarzenia_medycznego} style={{ borderBottom: '1px solid #333' }}>
+                                <td style={{ padding: '10px' }}>{item.data_zdarzenia}</td>
+                                <td style={{ padding: '10px' }}>{item.typ_zdarzenia}</td>
+                                <td style={{ padding: '10px' }}>{item.id_zwierzecia ? item.id_zwierzecia.substring(0, 8) + '...' : 'N/A'}</td>
+                                <td style={{ padding: '10px' }}>{item.nazwisko_weterynarza || item.id_pracownika}</td>
+                                <td style={{ padding: '10px' }}>{item.opis}</td>
+                                <td style={{ padding: '10px' }}>
+                                    <button className="btn" onClick={() => handleEditMedical(item)}>Edytuj</button>
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 ) : (
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                         <thead>
-                            <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                                <th style={{ padding: '10px' }}>Data</th>
-                                <th style={{ padding: '10px' }}>Lokalizacja</th>
-                                <th style={{ padding: '10px' }}>Pasza</th>
-                                <th style={{ padding: '10px' }}>Pracownik</th>
-                                <th style={{ padding: '10px' }}>Ilość</th>
-                                <th style={{ padding: '10px' }}>Akcje</th>
-                            </tr>
+                        <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                            <th style={{ padding: '10px' }}>Data</th>
+                            <th style={{ padding: '10px' }}>Lokalizacja</th>
+                            <th style={{ padding: '10px' }}>Pasza</th>
+                            <th style={{ padding: '10px' }}>Pracownik</th>
+                            <th style={{ padding: '10px' }}>Ilość</th>
+                            <th style={{ padding: '10px' }}>Akcje</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {feedingEvents.map(item => (
-                                <tr key={item.ID_Zdarzenia_Karmienia} style={{ borderBottom: '1px solid #333' }}>
-                                    <td style={{ padding: '10px' }}>{item.Data_Karmienia}</td>
-                                    <td style={{ padding: '10px' }}>{item.Nazwa_Lokalizacji}</td>
-                                    <td style={{ padding: '10px' }}>{item.Nazwa_Paszy}</td>
-                                    <td style={{ padding: '10px' }}>{item.Nazwisko_Pracownika}</td>
-                                    <td style={{ padding: '10px' }}>{item.Ilosc_Paszy}</td>
-                                    <td style={{ padding: '10px' }}>
-                                        <button className="btn" onClick={() => handleEditFeeding(item)}>Edytuj</button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {feedingEvents.map(item => (
+                            <tr key={item.id_zdarzenia_karmienia} style={{ borderBottom: '1px solid #333' }}>
+                                <td style={{ padding: '10px' }}>{item.data_karmienia}</td>
+                                <td style={{ padding: '10px' }}>{item.nazwa_lokalizacji}</td>
+                                <td style={{ padding: '10px' }}>{item.nazwa_paszy}</td>
+                                <td style={{ padding: '10px' }}>{item.nazwisko_pracownika}</td>
+                                <td style={{ padding: '10px' }}>{item.ilosc_paszy}</td>
+                                <td style={{ padding: '10px' }}>
+                                    <button className="btn" onClick={() => handleEditFeeding(item)}>Edytuj</button>
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 )}
@@ -172,11 +170,11 @@ const Events = () => {
                                 <>
                                     <select value={medicalItem.ID_Zwierzecia} onChange={e => setMedicalItem({ ...medicalItem, ID_Zwierzecia: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>
                                         <option value="">Wybierz Zwierzę</option>
-                                        {Array.isArray(metadata.animals) && metadata.animals.map(a => <option key={a.ID_Zwierzecia} value={a.ID_Zwierzecia}>{a.ID_Zwierzecia ? a.ID_Zwierzecia.substring(0, 8) : '???'}... - {a.Nazwa_Rasy}</option>)}
+                                        {Array.isArray(metadata.animals) && metadata.animals.map(a => <option key={a.id_zwierzecia} value={a.id_zwierzecia}>{a.id_zwierzecia ? a.id_zwierzecia.substring(0, 8) : '???'}... - {a.nazwa_rasy}</option>)}
                                     </select>
                                     <select value={medicalItem.ID_Pracownika} onChange={e => setMedicalItem({ ...medicalItem, ID_Pracownika: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>
                                         <option value="">Wybierz Weterynarza</option>
-                                        {metadata.employees.map(e => <option key={e.ID_Pracownika} value={e.ID_Pracownika}>{e.Imie} {e.Nazwisko} ({e.Stanowisko})</option>)}
+                                        {metadata.employees.map(e => <option key={e.id_pracownika} value={e.id_pracownika}>{e.imie} {e.nazwisko} ({e.stanowisko})</option>)}
                                     </select>
                                     <input type="date" value={medicalItem.Data_Zdarzenia} onChange={e => setMedicalItem({ ...medicalItem, Data_Zdarzenia: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }} />
                                     <select value={medicalItem.Typ_Zdarzenia} onChange={e => setMedicalItem({ ...medicalItem, Typ_Zdarzenia: e.target.value })} style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>
@@ -193,15 +191,15 @@ const Events = () => {
                                 <>
                                     <select value={feedingItem.ID_Lokalizacji} onChange={e => setFeedingItem({ ...feedingItem, ID_Lokalizacji: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>
                                         <option value="">Wybierz Lokalizację</option>
-                                        {metadata.locations.map(l => <option key={l.ID_Lokalizacji} value={l.ID_Lokalizacji}>{l.Nazwa_Lokalizacji}</option>)}
+                                        {metadata.locations.map(l => <option key={l.id_lokalizacji} value={l.id_lokalizacji}>{l.nazwa_lokalizacji}</option>)}
                                     </select>
                                     <select value={feedingItem.ID_Paszy} onChange={e => setFeedingItem({ ...feedingItem, ID_Paszy: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>
                                         <option value="">Wybierz Paszę</option>
-                                        {metadata.feed.map(f => <option key={f.ID_Paszy} value={f.ID_Paszy}>{f.Nazwa_Paszy} ({f.Jednostka})</option>)}
+                                        {metadata.feed.map(f => <option key={f.id_paszy} value={f.id_paszy}>{f.nazwa_paszy} ({f.jednostka})</option>)}
                                     </select>
                                     <select value={feedingItem.ID_Pracownika} onChange={e => setFeedingItem({ ...feedingItem, ID_Pracownika: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }}>
                                         <option value="">Wybierz Pracownika</option>
-                                        {metadata.employees.map(e => <option key={e.ID_Pracownika} value={e.ID_Pracownika}>{e.Imie} {e.Nazwisko}</option>)}
+                                        {metadata.employees.map(e => <option key={e.id_pracownika} value={e.id_pracownika}>{e.imie} {e.nazwisko}</option>)}
                                     </select>
                                     <input type="datetime-local" value={feedingItem.Data_Karmienia} onChange={e => setFeedingItem({ ...feedingItem, Data_Karmienia: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }} />
                                     <input type="number" placeholder="Ilość" value={feedingItem.Ilosc_Paszy} onChange={e => setFeedingItem({ ...feedingItem, Ilosc_Paszy: e.target.value })} required style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: '1px solid #555' }} />

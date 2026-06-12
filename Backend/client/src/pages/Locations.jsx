@@ -26,8 +26,8 @@ const Locations = () => {
     };
 
     const handleEdit = (item) => {
-        setNewItem({ Nazwa_Lokalizacji: item.Nazwa_Lokalizacji, Typ_Lokalizacji: item.Typ_Lokalizacji, Pojemnosc: item.Pojemnosc });
-        setEditingId(item.ID_Lokalizacji);
+        setNewItem({ Nazwa_Lokalizacji: item.nazwa_lokalizacji, Typ_Lokalizacji: item.typ_lokalizacji, Pojemnosc: item.pojemnosc });
+        setEditingId(item.id_lokalizacji);
         setShowModal(true);
     };
 
@@ -55,24 +55,24 @@ const Locations = () => {
             <div className="card" style={{ marginTop: '20px' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
-                        <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                            <th style={{ padding: '10px' }}>Nazwa</th>
-                            <th style={{ padding: '10px' }}>Typ</th>
-                            <th style={{ padding: '10px' }}>Pojemność</th>
-                            <th style={{ padding: '10px' }}>Akcje</th>
-                        </tr>
+                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <th style={{ padding: '10px' }}>Nazwa</th>
+                        <th style={{ padding: '10px' }}>Typ</th>
+                        <th style={{ padding: '10px' }}>Pojemność</th>
+                        <th style={{ padding: '10px' }}>Akcje</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {locations.map(item => (
-                            <tr key={item.ID_Lokalizacji} style={{ borderBottom: '1px solid #333' }}>
-                                <td style={{ padding: '10px' }}>{item.Nazwa_Lokalizacji}</td>
-                                <td style={{ padding: '10px' }}>{item.Typ_Lokalizacji}</td>
-                                <td style={{ padding: '10px' }}>{item.Pojemnosc}</td>
-                                <td style={{ padding: '10px' }}>
-                                    <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
-                                </td>
-                            </tr>
-                        ))}
+                    {locations.map(item => (
+                        <tr key={item.id_lokalizacji} style={{ borderBottom: '1px solid #333' }}>
+                            <td style={{ padding: '10px' }}>{item.nazwa_lokalizacji}</td>
+                            <td style={{ padding: '10px' }}>{item.typ_lokalizacji}</td>
+                            <td style={{ padding: '10px' }}>{item.pojemnosc}</td>
+                            <td style={{ padding: '10px' }}>
+                                <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>

@@ -7,13 +7,11 @@ const Dashboard = () => {
     const [weather, setWeather] = useState(null);
 
     useEffect(() => {
-        // Fetch dashboard stats from our backend
         authFetch('/api/dashboard')
             .then(res => res.json())
             .then(data => setStats(data))
-            .catch(err => console.error('Error fetching dashboard stats:', err));
+            .catch(err => console.error(err));
 
-        // Fetch external API (Open-Meteo Weather for Warsaw as default for AgroManager)
         fetch('https://api.open-meteo.com/v1/forecast?latitude=52.2298&longitude=21.0118&current_weather=true')
             .then(res => res.json())
             .then(data => {
@@ -21,11 +19,10 @@ const Dashboard = () => {
                     setWeather(data.current_weather);
                 }
             })
-            .catch(err => console.error('Error fetching weather:', err));
+            .catch(err => console.error(err));
     }, []);
 
     const getWeatherIcon = (code) => {
-        // Basic WMO weather codes mapping
         if (code === 0 || code === 1) return <Sun color="#f1c40f" size={40} />;
         if (code >= 2 && code <= 3) return <Cloud color="#bdc3c7" size={40} />;
         if (code >= 51 && code <= 65) return <CloudRain color="#3498db" size={40} />;
@@ -37,7 +34,6 @@ const Dashboard = () => {
             <h1>Pulpit Nawigacyjny</h1>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '20px' }}>
 
-                {/* Card 1 */}
                 <div className="card">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
@@ -48,7 +44,6 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Card 2 */}
                 <div className="card">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
@@ -59,7 +54,6 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Card 3 */}
                 <div className="card">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
@@ -70,7 +64,6 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Card 4 - External API */}
                 <div className="card" style={{ background: 'linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.2) 100%)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>

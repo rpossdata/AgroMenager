@@ -26,8 +26,8 @@ const Feed = () => {
     };
 
     const handleEdit = (item) => {
-        setNewItem({ Nazwa_Paszy: item.Nazwa_Paszy, Jednostka: item.Jednostka, Stan_Magazynowy: item.Stan_Magazynowy });
-        setEditingId(item.ID_Paszy);
+        setNewItem({ Nazwa_Paszy: item.nazwa_paszy, Jednostka: item.jednostka, Stan_Magazynowy: item.stan_magazynowy });
+        setEditingId(item.id_paszy);
         setShowModal(true);
     };
 
@@ -55,24 +55,24 @@ const Feed = () => {
             <div className="card" style={{ marginTop: '20px' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
-                        <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                            <th style={{ padding: '10px' }}>Nazwa</th>
-                            <th style={{ padding: '10px' }}>Jednostka</th>
-                            <th style={{ padding: '10px' }}>Stan Magazynowy</th>
-                            <th style={{ padding: '10px' }}>Akcje</th>
-                        </tr>
+                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <th style={{ padding: '10px' }}>Nazwa</th>
+                        <th style={{ padding: '10px' }}>Jednostka</th>
+                        <th style={{ padding: '10px' }}>Stan Magazynowy</th>
+                        <th style={{ padding: '10px' }}>Akcje</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {feed.map(item => (
-                            <tr key={item.ID_Paszy} style={{ borderBottom: '1px solid #333' }}>
-                                <td style={{ padding: '10px' }}>{item.Nazwa_Paszy}</td>
-                                <td style={{ padding: '10px' }}>{item.Jednostka}</td>
-                                <td style={{ padding: '10px' }}>{item.Stan_Magazynowy}</td>
-                                <td style={{ padding: '10px' }}>
-                                    <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
-                                </td>
-                            </tr>
-                        ))}
+                    {feed.map(item => (
+                        <tr key={item.id_paszy} style={{ borderBottom: '1px solid #333' }}>
+                            <td style={{ padding: '10px' }}>{item.nazwa_paszy}</td>
+                            <td style={{ padding: '10px' }}>{item.jednostka}</td>
+                            <td style={{ padding: '10px' }}>{item.stan_magazynowy}</td>
+                            <td style={{ padding: '10px' }}>
+                                <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>

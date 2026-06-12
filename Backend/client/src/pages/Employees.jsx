@@ -26,8 +26,8 @@ const Employees = () => {
     };
 
     const handleEdit = (item) => {
-        setNewItem({ Imie: item.Imie, Nazwisko: item.Nazwisko, Stanowisko: item.Stanowisko });
-        setEditingId(item.ID_Pracownika);
+        setNewItem({ Imie: item.imie, Nazwisko: item.nazwisko, Stanowisko: item.stanowisko });
+        setEditingId(item.id_pracownika);
         setShowModal(true);
     };
 
@@ -55,24 +55,24 @@ const Employees = () => {
             <div className="card" style={{ marginTop: '20px' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
-                        <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                            <th style={{ padding: '10px' }}>Imię</th>
-                            <th style={{ padding: '10px' }}>Nazwisko</th>
-                            <th style={{ padding: '10px' }}>Stanowisko</th>
-                            <th style={{ padding: '10px' }}>Akcje</th>
-                        </tr>
+                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <th style={{ padding: '10px' }}>Imię</th>
+                        <th style={{ padding: '10px' }}>Nazwisko</th>
+                        <th style={{ padding: '10px' }}>Stanowisko</th>
+                        <th style={{ padding: '10px' }}>Akcje</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {employees.map(item => (
-                            <tr key={item.ID_Pracownika} style={{ borderBottom: '1px solid #333' }}>
-                                <td style={{ padding: '10px' }}>{item.Imie}</td>
-                                <td style={{ padding: '10px' }}>{item.Nazwisko}</td>
-                                <td style={{ padding: '10px' }}>{item.Stanowisko}</td>
-                                <td style={{ padding: '10px' }}>
-                                    <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
-                                </td>
-                            </tr>
-                        ))}
+                    {employees.map(item => (
+                        <tr key={item.id_pracownika} style={{ borderBottom: '1px solid #333' }}>
+                            <td style={{ padding: '10px' }}>{item.imie}</td>
+                            <td style={{ padding: '10px' }}>{item.nazwisko}</td>
+                            <td style={{ padding: '10px' }}>{item.stanowisko}</td>
+                            <td style={{ padding: '10px' }}>
+                                <button className="btn" onClick={() => handleEdit(item)}>Edytuj</button>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>
